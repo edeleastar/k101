@@ -124,8 +124,8 @@ body
       Lab-02
     </a>
     
-    <a class="item" data-tab="01">
-      01
+    <a class="item" data-tab="Exercise Solutions">
+      Exercise Solutions
     </a>
     
     <a class="item" data-tab="02">
@@ -202,13 +202,210 @@ body
 
       </div>
      
-      <div  class="ui tab segment lab" data-tab="01">
-        <p>#</p>
+      <div  class="ui tab segment lab" data-tab="Exercise Solutions">
+        <h1>Exercises Solutions</h1>
+<h2>Exercise 1:</h2>
+<p>Create an ArrayList of Placemarks in PlacemarkActivity - and add each new activity to this list.</p>
+<p>Log all placemarks when a new one is entered.</p>
+<p>HINT: Here is a simple placemark array declaration + creation:</p>
+<pre><code>  val placemarks = ArrayList&lt;PlacemarkModel&gt;()</code></pre>
+<h2>Solution</h2>
+<p>Even if you solved the problem - try this version:</p>
+<pre><code>class PlacemarkActivity : AppCompatActivity(), AnkoLogger {
+
+  var placemark = PlacemarkModel()
+  val placemarks = ArrayList&lt;PlacemarkModel&gt;()
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_placemark)
+
+    btnAdd.setOnClickListener() {
+      placemark.title = placemarkTitle.text.toString()
+      if (placemark.title.isNotEmpty()) {
+        placemarks.add(placemark)
+        info(&quot;add Button Pressed: $placemarkTitle&quot;)
+        placemarks.forEach { info(&quot;add Button Pressed: ${it.title}&quot;)}
+      }
+      else {
+        toast (&quot;Please Enter a title&quot;)
+      }
+    }
+  }
+}</code></pre>
+<p>Look carefully at this statement:</p>
+<pre><code>        placemarks.forEach { info(&quot;add Button Pressed: ${it.title}&quot;)}</code></pre>
+<p>What is going on here? This is another example of a Kotlin lambda - this time as a parameter to a forEach function associated with a collection. Review these posts here to get a general feel for how to manipulate collections effectively:</p>
+<ul>
+<li><a href="https://antonioleiva.com/functional-programming-android-kotlin-lambdas/">https://antonioleiva.com/functional-programming-android-kotlin-lambdas/</a></li>
+<li><a href="https://antonioleiva.com/collection-operations-kotlin/">https://antonioleiva.com/collection-operations-kotlin/</a></li>
+</ul>
+<p>(You may need to bookmark them and come back to them later)</p>
+<p>Run the app with this solution - do you notice anything strange? You should see the every time we add a new placemark, we seem to log out the same value for all entries added. This is because we are only ever creating a single placemark :</p>
+<pre><code>  var placemark = PlacemarkModel()</code></pre>
+<p>Try this version of the add method instead:</p>
+<pre><code>        placemarks.add(placemark.copy())</code></pre>
+<p>Run again now and check the logs - each entry should be added now as expected.</p>
+<h2>Exercise 2:</h2>
+<p>Create new text field <code>description</code> + log when entered. This will require you to:</p>
+<ul>
+<li>and a new field in the layout</li>
+<li>add a new entry in the strings.xml file</li>
+<li>expend the model</li>
+<li>recover the field in the event handler and include in the model objects</li>
+<li>log the new field</li>
+</ul>
+<h2>Solution</h2>
+<h2>strings.xml</h2>
+<pre><code>...
+  &lt;string name=&quot;hint_placemarkDescription&quot;&gt;Description &lt;/string&gt;
+...</code></pre>
+<h2>activity_placemark.xml</h2>
+<pre><code>...
+        &lt;android.support.design.widget.TextInputEditText
+            android:id=&quot;@+id/description&quot;
+            android:layout_width=&quot;match_parent&quot;
+            android:layout_height=&quot;wrap_content&quot;
+            android:layout_margin=&quot;8dp&quot;
+            android:hint=&quot;@string/hint_placemarkDescription&quot;
+            android:inputType=&quot;text&quot;
+            android:maxLength=&quot;25&quot;
+            android:maxLines=&quot;1&quot;
+            android:padding=&quot;8dp&quot;
+            android:textColor=&quot;@color/colorPrimaryDark&quot;
+            android:textSize=&quot;14sp&quot;/&gt;
+...</code></pre>
+<p>Make sure to put this into the correct context.</p>
+<h2>PlacemarkModel.kt</h2>
+<pre><code>data class PlacemarkModel(var title: String = &quot;&quot;,
+                          var description: String = &quot;&quot;)</code></pre>
+<h2>PlacemarkActivity.kt</h2>
+<pre><code>...
+      placemark.description = description.text.toString()
+...</code></pre>
+<p>Again, make sure to put this into the correct context.</p>
 
       </div>
      
       <div  class="ui tab segment lab" data-tab="02">
-        <p>#</p>
+        <h1>MainApp</h1>
+<p>Create a new package called <code>org.wit.placemark.wit</code>, and introduce this class:</p>
+<h2>MainApp</h2>
+<pre><code>package org.wit.placemark.main
+
+import android.app.Application
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
+
+class MainApp : Application(), AnkoLogger {
+
+  override fun onCreate() {
+    super.onCreate()
+    info(&quot;Placemark started&quot;)
+  }
+}</code></pre>
+<p>The package structure should look like this:</p>
+<p><img src="img/01.png" alt=""></p>
+<p>In addition, change the AndroidManifest to specifically reference this class:</p>
+<h2>AndroidManifest.xml</h2>
+<pre><code>...
+  &lt;application
+      android:name=&quot;org.wit.placemark.main.MainApp&quot;
+...</code></pre>
+<p>A single instance of this class will be created when our application will be launched. A reference to this application can be acquired in other activities as needed.</p>
+<p>Run the app now, and verify that the log message is being generated.</p>
+<p>We can now put the placemarks in to this class:</p>
+<h2>MainApp</h2>
+<pre><code>class MainApp : Application(), AnkoLogger {
+
+  val placemarks = ArrayList&lt;PlacemarkModel&gt;()
+
+  override fun onCreate() {
+    super.onCreate()
+    info(&quot;Placemark started&quot;)
+  }
+}</code></pre>
+<p>... and we can adjust PlacemarkActivity to use this list instead of the one we had created in PlacemarkActivity:</p>
+<pre><code>class PlacemarkActivity : AppCompatActivity(), AnkoLogger {
+
+  var placemark = PlacemarkModel()
+  var app : MainApp? = null
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_placemark)
+    app = application as MainApp
+
+    btnAdd.setOnClickListener() {
+      placemark.title = placemarkTitle.text.toString()
+      placemark.description = description.text.toString()
+      if (placemark.title.isNotEmpty()) {
+        app!!.placemarks.add(placemark.copy())
+        info(&quot;add Button Pressed: $placemarkTitle&quot;)
+        app!!.placemarks.forEach { info(&quot;add Button Pressed: ${it}&quot;)}
+      }
+      else {
+        toast (&quot;Please Enter a title&quot;)
+      }
+    }
+  }
+}</code></pre>
+<h2>Null Safety</h2>
+<p>Notice the the reference to the MainApp object:</p>
+<pre><code>  var app : MainApp? = null</code></pre>
+<p>How it is initialised:</p>
+<pre><code>    app = application as MainApp</code></pre>
+<p>and how it is used:</p>
+<pre><code>        app!!.placemarks.add(placemark.copy())
+        info(&quot;add Button Pressed: $placemarkTitle&quot;)
+        app!!.placemarks.forEach { info(&quot;add Button Pressed: ${it}&quot;)}</code></pre>
+<p>There is liberal use of <code>?</code> and <code>!!</code> in this code. This is an example of Null Safety in action in Kotlin. A key feature of Kotlin - (see point 2 a few pages down):</p>
+<ul>
+<li><a href="https://antonioleiva.com/kotlin-for-android-introduction/">https://antonioleiva.com/kotlin-for-android-introduction/</a></li>
+</ul>
+<p>A more detailed outline here </p>
+<ul>
+<li><a href="https://kotlinlang.org/docs/reference/null-safety.html">https://kotlinlang.org/docs/reference/null-safety.html</a></li>
+</ul>
+<p>Sometimes, we which to override null safety checks - particularly if we are certain that the reference will in fact me initialised. Replace MainApp now with this version:</p>
+<h2>MainApp</h2>
+<pre><code>class PlacemarkActivity : AppCompatActivity(), AnkoLogger {
+
+  var placemark = PlacemarkModel()
+  lateinit var app : MainApp
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_placemark)
+    app = application as MainApp
+
+    btnAdd.setOnClickListener() {
+      placemark.title = placemarkTitle.text.toString()
+      placemark.description = description.text.toString()
+      if (placemark.title.isNotEmpty()) {
+        app.placemarks.add(placemark.copy())
+        info(&quot;add Button Pressed: $placemarkTitle&quot;)
+        app.placemarks.forEach { info(&quot;add Button Pressed: ${it}&quot;)}
+      }
+      else {
+        toast (&quot;Please Enter a title&quot;)
+      }
+    }
+  }
+}</code></pre>
+<p>The changes an be seen in these lines:</p>
+<pre><code>  lateinit var app : MainApp
+  ...
+      app = application as MainApp
+      ... 
+        app.placemarks.add(placemark.copy())
+        ...
+        app.placemarks.forEach { info(&quot;add Button Pressed: ${it}&quot;)}
+        ...</code></pre>
+<p>This is using the <code>lateint</code> qualifier. See this short discussion here:</p>
+<ul>
+<li><a href="&#x6d;&#x61;&#105;&#108;&#x74;&#x6f;&#58;&#104;&#116;&#116;&#112;&#x73;&#58;&#x2f;&#x2f;&#109;&#101;&#100;&#x69;&#117;&#x6d;&#46;&#x63;&#x6f;&#109;&#x2f;&#64;&#x6d;&#111;&#104;&#105;&#x74;&#x73;&#x68;&#97;&#114;&#x6d;&#x61;&#x5f;&#52;&#57;&#51;&#x36;&#x33;&#47;&#97;&#x6e;&#x64;&#x72;&#x6f;&#x69;&#100;&#45;&#107;&#111;&#116;&#108;&#105;&#x6e;&#45;&#x6c;&#x61;&#x7a;&#121;&#x2d;&#108;&#97;&#x74;&#x65;&#x69;&#x6e;&#105;&#x74;&#45;&#x61;&#x6e;&#100;&#45;&#x64;&#x65;&#x6c;&#x65;&#103;&#x61;&#116;&#101;&#115;&#x2d;&#57;&#x65;&#x35;&#102;&#x30;&#x31;&#99;&#53;&#54;&#49;&#100;&#x63;">&#104;&#116;&#116;&#112;&#x73;&#58;&#x2f;&#x2f;&#109;&#101;&#100;&#x69;&#117;&#x6d;&#46;&#x63;&#x6f;&#109;&#x2f;&#64;&#x6d;&#111;&#104;&#105;&#x74;&#x73;&#x68;&#97;&#114;&#x6d;&#x61;&#x5f;&#52;&#57;&#51;&#x36;&#x33;&#47;&#97;&#x6e;&#x64;&#x72;&#x6f;&#x69;&#100;&#45;&#107;&#111;&#116;&#108;&#105;&#x6e;&#45;&#x6c;&#x61;&#x7a;&#121;&#x2d;&#108;&#97;&#x74;&#x65;&#x69;&#x6e;&#105;&#x74;&#45;&#x61;&#x6e;&#100;&#45;&#x64;&#x65;&#x6c;&#x65;&#103;&#x61;&#116;&#101;&#115;&#x2d;&#57;&#x65;&#x35;&#102;&#x30;&#x31;&#99;&#53;&#54;&#49;&#100;&#x63;</a></li>
+</ul>
 
       </div>
      
@@ -234,6 +431,10 @@ body
      
       <div  class="ui tab segment lab" data-tab="07.Exercises">
         <h1>Solution</h1>
+<p>Placemark application so far:</p>
+<ul>
+<li><a href="archives/archive.zip">archive.zip</a></li>
+</ul>
 <h2>Exercise 1</h2>
 <p>Incorporate new &#39;Cancel&#39; action into <code>PlacemarkActivity</code>. This should return to PlacemarkList without adding a new Placemark, Use the <code>RESULT_CANCELED</code> return code.</p>
 <h2>Exercise 2</h2>
