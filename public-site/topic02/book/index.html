@@ -120,8 +120,8 @@ body
   </header>
   <div class="right tab-menu menu">
     
-    <a class="item" data-tab="Lab-08">
-      Lab-08
+    <a class="item" data-tab="Lab-02">
+      Lab-02
     </a>
     
     <a class="item" data-tab="01">
@@ -163,14 +163,32 @@ body
     <br><br>
     
       
-        <a class="active item" href="../../topic01/book/index.html">
-          Lab-08
+        <a class="item" href="../../topic01/book/index.html">
+          Lab-01
         </a>
       
     
       
         <a class="active item" href="../../topic02/book/index.html">
-          Lab-08
+          Lab-02
+        </a>
+      
+    
+      
+        <a class="item" href="../../topic03/book/index.html">
+          Lab-03
+        </a>
+      
+    
+      
+        <a class="item" href="../../topic04/book/index.html">
+          Lab-04
+        </a>
+      
+    
+      
+        <a class="item" href="../../topic05/book/index.html">
+          Lab-05
         </a>
       
     
@@ -179,7 +197,7 @@ body
     <div class="ui basic segment" id="labchat">
       <br>
       
-      <div  class="ui tab segment lab" data-tab="Lab-08">
+      <div  class="ui tab segment lab" data-tab="Lab-02">
         <h1>Objectives</h1>
 
       </div>
@@ -216,6 +234,24 @@ body
      
       <div  class="ui tab segment lab" data-tab="07.Exercises">
         <h1>Solution</h1>
+<h2>Exercise 1</h2>
+<p>Incorporate new &#39;Cancel&#39; action into <code>PlacemarkActivity</code>. This should return to PlacemarkList without adding a new Placemark, Use the <code>RESULT_CANCELED</code> return code.</p>
+<h2>Exercise 2</h2>
+<p> Introduce the following interface into the <code>models</code> package:</p>
+<pre><code>package org.wit.placemark.model
+
+interface PlacemarkStore {
+  fun findAll(): List&lt;PlacemarkModel&gt;
+  fun create(placemark: PlacemarkModel)
+}</code></pre>
+<h2>Exercise 3</h2>
+<p>Create a new class called <code>PlacemarkMemStore</code> to implement this interface. In MainApp, replace the ArrayList:</p>
+<pre><code>  val placemarks = ArrayList&lt;PlacemarkModel&gt;()</code></pre>
+<p>With an instance of an instance of your new class:</p>
+<pre><code>  val placemarkStore = PlacemarkMemStore()</code></pre>
+<p>Refactor PlacemrkActivity &amp; PlacemarkListActivity to use this object instead of the current arrangement.</p>
+<p>Exercise 4</p>
+<p>Introduce a new method in PlacemarkMemStore which will log all placemarks. Make this an internal method (not in the interface). Call it whenever a new placemark is added.</p>
 
       </div>
      
