@@ -405,18 +405,254 @@ class MainApp : Application(), AnkoLogger {
         ...</code></pre>
 <p>This is using the <code>lateint</code> qualifier. See this short discussion here:</p>
 <ul>
-<li><a href="&#x6d;&#x61;&#105;&#108;&#x74;&#x6f;&#58;&#x68;&#x74;&#x74;&#x70;&#115;&#58;&#47;&#47;&#x6d;&#x65;&#x64;&#105;&#x75;&#109;&#x2e;&#99;&#x6f;&#109;&#x2f;&#x40;&#109;&#x6f;&#104;&#105;&#116;&#115;&#104;&#x61;&#114;&#x6d;&#x61;&#x5f;&#x34;&#x39;&#x33;&#54;&#51;&#47;&#x61;&#x6e;&#100;&#x72;&#111;&#x69;&#x64;&#45;&#x6b;&#x6f;&#116;&#108;&#x69;&#x6e;&#45;&#x6c;&#97;&#122;&#x79;&#45;&#x6c;&#97;&#116;&#x65;&#x69;&#x6e;&#105;&#116;&#45;&#97;&#x6e;&#x64;&#x2d;&#100;&#x65;&#108;&#101;&#103;&#97;&#x74;&#x65;&#x73;&#45;&#57;&#101;&#53;&#102;&#48;&#x31;&#99;&#x35;&#x36;&#x31;&#100;&#x63;">&#x68;&#x74;&#x74;&#x70;&#115;&#58;&#47;&#47;&#x6d;&#x65;&#x64;&#105;&#x75;&#109;&#x2e;&#99;&#x6f;&#109;&#x2f;&#x40;&#109;&#x6f;&#104;&#105;&#116;&#115;&#104;&#x61;&#114;&#x6d;&#x61;&#x5f;&#x34;&#x39;&#x33;&#54;&#51;&#47;&#x61;&#x6e;&#100;&#x72;&#111;&#x69;&#x64;&#45;&#x6b;&#x6f;&#116;&#108;&#x69;&#x6e;&#45;&#x6c;&#97;&#122;&#x79;&#45;&#x6c;&#97;&#116;&#x65;&#x69;&#x6e;&#105;&#116;&#45;&#97;&#x6e;&#x64;&#x2d;&#100;&#x65;&#108;&#101;&#103;&#97;&#x74;&#x65;&#x73;&#45;&#57;&#101;&#53;&#102;&#48;&#x31;&#99;&#x35;&#x36;&#x31;&#100;&#x63;</a></li>
+<li><a href="&#109;&#97;&#105;&#x6c;&#116;&#111;&#58;&#x68;&#x74;&#116;&#x70;&#x73;&#x3a;&#x2f;&#47;&#109;&#101;&#100;&#105;&#117;&#x6d;&#x2e;&#x63;&#111;&#x6d;&#47;&#x40;&#109;&#x6f;&#104;&#105;&#x74;&#x73;&#x68;&#x61;&#x72;&#109;&#x61;&#95;&#x34;&#57;&#x33;&#x36;&#51;&#x2f;&#x61;&#x6e;&#100;&#x72;&#x6f;&#105;&#x64;&#45;&#x6b;&#111;&#116;&#x6c;&#x69;&#x6e;&#x2d;&#108;&#97;&#x7a;&#x79;&#45;&#108;&#x61;&#x74;&#x65;&#105;&#x6e;&#105;&#116;&#x2d;&#x61;&#110;&#100;&#45;&#x64;&#x65;&#108;&#101;&#103;&#x61;&#116;&#101;&#115;&#45;&#x39;&#x65;&#x35;&#102;&#x30;&#49;&#99;&#53;&#x36;&#x31;&#x64;&#x63;">&#x68;&#x74;&#116;&#x70;&#x73;&#x3a;&#x2f;&#47;&#109;&#101;&#100;&#105;&#117;&#x6d;&#x2e;&#x63;&#111;&#x6d;&#47;&#x40;&#109;&#x6f;&#104;&#105;&#x74;&#x73;&#x68;&#x61;&#x72;&#109;&#x61;&#95;&#x34;&#57;&#x33;&#x36;&#51;&#x2f;&#x61;&#x6e;&#100;&#x72;&#x6f;&#105;&#x64;&#45;&#x6b;&#111;&#116;&#x6c;&#x69;&#x6e;&#x2d;&#108;&#97;&#x7a;&#x79;&#45;&#108;&#x61;&#x74;&#x65;&#105;&#x6e;&#105;&#116;&#x2d;&#x61;&#110;&#100;&#45;&#x64;&#x65;&#108;&#101;&#103;&#x61;&#116;&#101;&#115;&#45;&#x39;&#x65;&#x35;&#102;&#x30;&#49;&#99;&#53;&#x36;&#x31;&#x64;&#x63;</a></li>
 </ul>
 
       </div>
      
       <div  class="ui tab segment lab" data-tab="03">
-        <p>#</p>
+        <h1>PlacemarkList</h1>
+<p>We need a new Activity to present a list of placemakrs - <code>PlacemarkListActivity</code>. Introducing a new view usually requires at lest the following:</p>
+<ul>
+<li>a layout</li>
+<li>a class</li>
+<li>a reference to the class in AndroidManifest.xml</li>
+</ul>
+<p>Here are the these three artifacts:</p>
+<h2>activity_placemark_list.xml</h2>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;android.support.design.widget.CoordinatorLayout
+    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+    xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    tools:context=&quot;org.wit.placemark.activities.PlacemarkListActivity&quot;&gt;
+
+  &lt;android.support.design.widget.AppBarLayout
+      android:layout_width=&quot;match_parent&quot;
+      android:layout_height=&quot;wrap_content&quot;
+      android:background=&quot;@color/colorAccent&quot;
+      android:fitsSystemWindows=&quot;true&quot;
+      app:elevation=&quot;0dip&quot;
+      app:theme=&quot;@style/ThemeOverlay.AppCompat.Dark.ActionBar&quot;&gt;
+
+    &lt;android.support.v7.widget.Toolbar
+        android:id=&quot;@+id/toolbarMain&quot;
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        app:titleTextColor=&quot;@color/colorPrimary&quot;/&gt;
+  &lt;/android.support.design.widget.AppBarLayout&gt;
+
+&lt;/android.support.design.widget.CoordinatorLayout&gt;</code></pre>
+<h2>PlacemarkListActivity</h2>
+<pre><code>package org.wit.placemark.activities
+
+import android.support.v7.app.AppCompatActivity
+import android.os.Bundle
+import org.wit.placemark.R
+import org.wit.placemark.main.MainApp
+
+class PlacemarkListActivity : AppCompatActivity() {
+
+  lateinit var app: MainApp
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_placemark_list)
+    app = application as MainApp
+  }
+}</code></pre>
+<p>Notice in the above, we are retrieving and storing a reference to the MainApp object (for future use).</p>
+<h2>AndroidManifest.xml</h2>
+<p>This is the current version:</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+          package=&quot;org.wit.placemark&quot;&gt;
+
+  &lt;application
+      android:name=&quot;org.wit.placemark.main.MainApp&quot;
+      android:allowBackup=&quot;true&quot;
+      android:icon=&quot;@mipmap/ic_launcher&quot;
+      android:label=&quot;@string/app_name&quot;
+      android:roundIcon=&quot;@mipmap/ic_launcher_round&quot;
+      android:supportsRtl=&quot;true&quot;
+      android:theme=&quot;@style/AppTheme&quot;&gt;
+    &lt;activity android:name=&quot;.activities.PlacemarkActivity&quot;&gt;
+      &lt;intent-filter&gt;
+        &lt;action android:name=&quot;android.intent.action.MAIN&quot;/&gt;
+
+        &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot;/&gt;
+      &lt;/intent-filter&gt;
+    &lt;/activity&gt;
+  &lt;/application&gt;
+
+&lt;/manifest&gt;</code></pre>
+<p>This is a revised version - </p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+          package=&quot;org.wit.placemark&quot;&gt;
+
+  &lt;application
+      android:name=&quot;.main.MainApp&quot;
+      android:allowBackup=&quot;true&quot;
+      android:icon=&quot;@mipmap/ic_launcher&quot;
+      android:label=&quot;@string/app_name&quot;
+      android:roundIcon=&quot;@mipmap/ic_launcher_round&quot;
+      android:supportsRtl=&quot;true&quot;
+      android:theme=&quot;@style/AppTheme&quot;&gt;
+    &lt;activity android:name=&quot;.activities.PlacemarkActivity&quot;&gt;
+    &lt;/activity&gt;
+    &lt;activity android:name=&quot;.activities.PlacemarkListActivity&quot;&gt;
+      &lt;intent-filter&gt;
+        &lt;action android:name=&quot;android.intent.action.MAIN&quot;/&gt;
+        &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot;/&gt;
+      &lt;/intent-filter&gt;
+    &lt;/activity&gt;
+  &lt;/application&gt;
+
+&lt;/manifest&gt;</code></pre>
+<p>Look carefully at the differences - we have included a new entry:</p>
+<pre><code>    &lt;activity android:name=&quot;.activities.PlacemarkListActivity&quot;&gt;
+       ...
+    &lt;/activity&gt;</code></pre>
+<p>and also, this entry is marked as the main activity:</p>
+<pre><code>    ...
+      &lt;intent-filter&gt;
+        &lt;action android:name=&quot;android.intent.action.MAIN&quot;/&gt;
+        &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot;/&gt;
+      &lt;/intent-filter&gt;
+    ...</code></pre>
+<p>Run the app now - you should see the (blank) PlacemarkListActivity</p>
 
       </div>
      
       <div  class="ui tab segment lab" data-tab="04">
-        <p>#</p>
+        <h1>Card + RecyclerView</h1>
+<p>To display a list of Placemarks, we will make use of these components:</p>
+<ul>
+<li>CardView</li>
+<li>RecyclerView</li>
+<li>RecyclerViewAdapter</li>
+</ul>
+<p>Orchestrating these three is now a familiar patterns in Android development. It is covered briefly in this article here:</p>
+<ul>
+<li><a href="https://developer.android.com/training/material/lists-cards.html">https://developer.android.com/training/material/lists-cards.html</a></li>
+</ul>
+<p>This is worth a quick read before proceeding.</p>
+<h2>CardView</h2>
+<p>Cardview itself is supported by a library - which must be included now:</p>
+<h2>build.gradle</h2>
+<pre><code>...
+  implementation &#39;com.android.support:cardview-v7:26.1.0&#39;
+...</code></pre>
+<p>Here is the cardview itself:</p>
+<h2>card_placemark.xml</h2>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;android.support.v7.widget.CardView
+    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;wrap_content&quot;
+    android:layout_marginBottom=&quot;8dp&quot;
+    android:elevation=&quot;24dp&quot;&gt;
+
+  &lt;RelativeLayout
+      android:layout_width=&quot;match_parent&quot;
+      android:layout_height=&quot;wrap_content&quot;
+      android:padding=&quot;16dp&quot;&gt;
+
+    &lt;TextView
+        android:id=&quot;@+id/placemarkTitle&quot;
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:layout_alignParentTop=&quot;true&quot;
+        android:textSize=&quot;30sp&quot;/&gt;
+
+    &lt;TextView
+        android:id=&quot;@+id/description&quot;
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:layout_below=&quot;@id/placemarkTitle&quot;/&gt;
+
+  &lt;/RelativeLayout&gt;
+&lt;/android.support.v7.widget.CardView&gt;</code></pre>
+<p>When you rebuild the project, you should be able to view the card in design view.</p>
+<p>We can insert the card into the activity_placemark_list layout:</p>
+<h2>activity_placemark_list.xml</h2>
+<pre><code>...
+  &lt;android.support.v7.widget.RecyclerView
+      android:id=&quot;@+id/recyclerView&quot;
+      android:layout_width=&quot;match_parent&quot;
+      android:layout_height=&quot;match_parent&quot;
+      android:scrollbars=&quot;vertical&quot;
+      app:layout_behavior=&quot;@string/appbar_scrolling_view_behavior&quot;/&gt;
+...</code></pre>
+<p>This is to be inserted just before the closing tag.</p>
+<h2>RecyclerView + Adapter</h2>
+<p>With these resources in place - the PlacemarkListActivity can be reworked to include the RecyclerView + adapter:</p>
+<h2>PlacemarkListActivity</h2>
+<pre><code>package org.wit.placemark.activities
+
+import android.support.v7.app.AppCompatActivity
+import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import kotlinx.android.synthetic.main.activity_placemark_list.*
+import kotlinx.android.synthetic.main.card_placemark.view.*
+import org.wit.placemark.R
+import org.wit.placemark.main.MainApp
+import org.wit.placemark.models.PlacemarkModel
+
+class PlacemarkListActivity : AppCompatActivity() {
+
+  lateinit var app: MainApp
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_placemark_list)
+    app = application as MainApp
+
+    val layoutManager = LinearLayoutManager(this)
+    recyclerView.layoutManager = layoutManager
+    recyclerView.adapter = PlacemarkAdapter(app.placemarks)
+  }
+}
+
+class PlacemarkAdapter constructor(private var placemarks: List&lt;PlacemarkModel&gt;) : RecyclerView.Adapter&lt;PlacemarkAdapter.MainHolder&gt;() {
+
+  override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MainHolder {
+    return MainHolder(LayoutInflater.from(parent?.context).inflate(R.layout.card_placemark, parent, false))
+  }
+
+  override fun onBindViewHolder(holder: MainHolder, position: Int) {
+    val placemark = placemarks[holder.adapterPosition]
+    holder.bind(placemark)
+  }
+
+  override fun getItemCount(): Int = placemarks.size
+
+  class MainHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+    fun bind(placemark: PlacemarkModel) {
+      itemView.placemarkTitle.text = placemark.title
+      itemView.description.text = placemark.description
+    }
+  }
+}</code></pre>
+<p>The app should run now - but will still be blank. In MainApp, we can add some test placemarks to test out the Recycler machinery:</p>
+<h2>MainApp</h2>
+<pre><code>...
+  override fun onCreate() {
+    super.onCreate()
+    info(&quot;Placemark started&quot;)
+    placemarks.add(PlacemarkModel(&quot;One&quot;, &quot;About one...&quot;))
+    placemarks.add(PlacemarkModel(&quot;Two&quot;, &quot;About two...&quot;))
+    placemarks.add(PlacemarkModel(&quot;Three&quot;, &quot;About three...&quot;))
+  }
+...</code></pre>
 
       </div>
      
