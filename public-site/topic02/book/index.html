@@ -405,7 +405,7 @@ class MainApp : Application(), AnkoLogger {
         ...</code></pre>
 <p>This is using the <code>lateint</code> qualifier. See this short discussion here:</p>
 <ul>
-<li><a href="&#109;&#97;&#105;&#x6c;&#116;&#111;&#58;&#x68;&#x74;&#116;&#x70;&#x73;&#x3a;&#x2f;&#47;&#109;&#101;&#100;&#105;&#117;&#x6d;&#x2e;&#x63;&#111;&#x6d;&#47;&#x40;&#109;&#x6f;&#104;&#105;&#x74;&#x73;&#x68;&#x61;&#x72;&#109;&#x61;&#95;&#x34;&#57;&#x33;&#x36;&#51;&#x2f;&#x61;&#x6e;&#100;&#x72;&#x6f;&#105;&#x64;&#45;&#x6b;&#111;&#116;&#x6c;&#x69;&#x6e;&#x2d;&#108;&#97;&#x7a;&#x79;&#45;&#108;&#x61;&#x74;&#x65;&#105;&#x6e;&#105;&#116;&#x2d;&#x61;&#110;&#100;&#45;&#x64;&#x65;&#108;&#101;&#103;&#x61;&#116;&#101;&#115;&#45;&#x39;&#x65;&#x35;&#102;&#x30;&#49;&#99;&#53;&#x36;&#x31;&#x64;&#x63;">&#x68;&#x74;&#116;&#x70;&#x73;&#x3a;&#x2f;&#47;&#109;&#101;&#100;&#105;&#117;&#x6d;&#x2e;&#x63;&#111;&#x6d;&#47;&#x40;&#109;&#x6f;&#104;&#105;&#x74;&#x73;&#x68;&#x61;&#x72;&#109;&#x61;&#95;&#x34;&#57;&#x33;&#x36;&#51;&#x2f;&#x61;&#x6e;&#100;&#x72;&#x6f;&#105;&#x64;&#45;&#x6b;&#111;&#116;&#x6c;&#x69;&#x6e;&#x2d;&#108;&#97;&#x7a;&#x79;&#45;&#108;&#x61;&#x74;&#x65;&#105;&#x6e;&#105;&#116;&#x2d;&#x61;&#110;&#100;&#45;&#x64;&#x65;&#108;&#101;&#103;&#x61;&#116;&#101;&#115;&#45;&#x39;&#x65;&#x35;&#102;&#x30;&#49;&#99;&#53;&#x36;&#x31;&#x64;&#x63;</a></li>
+<li><a href="&#109;&#x61;&#105;&#x6c;&#x74;&#111;&#x3a;&#x68;&#x74;&#116;&#x70;&#x73;&#58;&#47;&#x2f;&#109;&#101;&#x64;&#x69;&#x75;&#x6d;&#46;&#99;&#x6f;&#109;&#x2f;&#x40;&#109;&#111;&#x68;&#105;&#116;&#x73;&#104;&#97;&#114;&#x6d;&#97;&#x5f;&#52;&#57;&#x33;&#x36;&#x33;&#x2f;&#97;&#x6e;&#x64;&#x72;&#x6f;&#x69;&#100;&#45;&#107;&#111;&#116;&#108;&#105;&#110;&#45;&#108;&#97;&#x7a;&#x79;&#45;&#108;&#x61;&#x74;&#101;&#105;&#110;&#105;&#x74;&#45;&#x61;&#x6e;&#100;&#45;&#100;&#101;&#x6c;&#x65;&#x67;&#x61;&#x74;&#101;&#x73;&#45;&#x39;&#x65;&#53;&#102;&#x30;&#49;&#x63;&#53;&#x36;&#x31;&#100;&#99;">&#x68;&#x74;&#116;&#x70;&#x73;&#58;&#47;&#x2f;&#109;&#101;&#x64;&#x69;&#x75;&#x6d;&#46;&#99;&#x6f;&#109;&#x2f;&#x40;&#109;&#111;&#x68;&#105;&#116;&#x73;&#104;&#97;&#114;&#x6d;&#97;&#x5f;&#52;&#57;&#x33;&#x36;&#x33;&#x2f;&#97;&#x6e;&#x64;&#x72;&#x6f;&#x69;&#100;&#45;&#107;&#111;&#116;&#108;&#105;&#110;&#45;&#108;&#97;&#x7a;&#x79;&#45;&#108;&#x61;&#x74;&#101;&#105;&#110;&#105;&#x74;&#45;&#x61;&#x6e;&#100;&#45;&#100;&#101;&#x6c;&#x65;&#x67;&#x61;&#x74;&#101;&#x73;&#45;&#x39;&#x65;&#53;&#102;&#x30;&#49;&#x63;&#53;&#x36;&#x31;&#100;&#99;</a></li>
 </ul>
 
       </div>
@@ -653,16 +653,106 @@ class PlacemarkAdapter constructor(private var placemarks: List&lt;PlacemarkMode
     placemarks.add(PlacemarkModel(&quot;Three&quot;, &quot;About three...&quot;))
   }
 ...</code></pre>
+<p><img src="img/02.png" alt=""></p>
 
       </div>
      
       <div  class="ui tab segment lab" data-tab="05">
-        <p>#</p>
+        <h1>Menu &amp; Actionbar</h1>
+<p>In order to trigger the creation of Placemarks, we need some menu/action mechanic on our home screen. This will be provided by supporing a button/menu an action bar along the top of the PlacemarkListActivity.</p>
+<p>First a new string resource:</p>
+<h2>stings.xml</h2>
+<pre><code>  &lt;string name=&quot;menu_addPlacemark&quot;&gt;Add&lt;/string&gt;</code></pre>
+<p>Then a new menu resource:</p>
+<h2>menu_main.xml</h2>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;menu xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+      xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;&gt;
+
+  &lt;item
+      android:id=&quot;@+id/item_add&quot;
+      android:icon=&quot;@android:drawable/ic_menu_add&quot;
+      android:title=&quot;@string/menu_addPlacemark&quot;
+      app:showAsAction=&quot;always&quot;/&gt;
+&lt;/menu&gt;</code></pre>
+<p>The above resource must be in its own folder:</p>
+<p><img src="img/03.png" alt=""></p>
+<p>In the PlacemarkListActivity onCreate method, we must enable the action bar (and give it a title):</p>
+<h2>PlacemarkListActivity</h2>
+<pre><code>...
+    toolbarMain.title = title
+    setSupportActionBar(toolbarMain)
+...</code></pre>
+<p>... and then override the method to load the menu resource:</p>
+<pre><code>...
+  override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    menuInflater.inflate(R.menu.menu_main, menu)
+    return super.onCreateOptionsMenu(menu)
+  }
+...</code></pre>
+<p>This gives us a single button on the action bar:</p>
+<p><img src="img/04.png" alt=""></p>
+<p>This is the stock icon we are using is </p>
+<pre><code>      android:icon=&quot;@android:drawable/ic_menu_add&quot;</code></pre>
+<p>This is drawn from this set:</p>
+<ul>
+<li><a href="http://androiddrawables.com/Menu.html">http://androiddrawables.com/Menu.html</a></li>
+</ul>
+<p>These can change with each release of Android - a comprehensive set of all drawable resources is available here:</p>
+<ul>
+<li><a href="http://androiddrawables.com/">http://androiddrawables.com/</a></li>
+</ul>
 
       </div>
      
       <div  class="ui tab segment lab" data-tab="06">
-        <p>#</p>
+        <h1>Action Implementation</h1>
+<p>Review this general introduction to App Bar/toolbars here:</p>
+<ul>
+<li><a href="https://developer.android.com/training/appbar/setting-up.html">https://developer.android.com/training/appbar/setting-up.html</a></li>
+</ul>
+<p>We need to respond to the button press - triggering the launch of the PlacemarkActivity:</p>
+<h2>PlacemarkListActivity</h2>
+<pre><code>  override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    when (item?.itemId) {
+      R.id.item_add -&gt; startActivityForResult&lt;PlacemarkActivity&gt;(AppCompatActivity.RESULT_OK)
+    }
+    return super.onOptionsItemSelected(item)
+  }</code></pre>
+<p>This implements the menu event handler - and if the event it <code>item_add</code>, we start the PlacemarkActivity.</p>
+<p>We are using the anko intent library:</p>
+<ul>
+<li><a href="https://github.com/Kotlin/anko/wiki/Anko-Commons-%E2%80%93-Intents">https://github.com/Kotlin/anko/wiki/Anko-Commons-%E2%80%93-Intents</a></li>
+</ul>
+<p>In this case we are starting an &#39;intent&#39; inside our own application. The intent systems in Android is more general than this - and we can trigger intents serviced by other applications.</p>
+<ul>
+<li><a href="https://developer.android.com/training/basics/intents/index.html">https://developer.android.com/training/basics/intents/index.html</a></li>
+</ul>
+<p>Indeed, we expose an intent to permit one of our activities to be launched.</p>
+<p>Run the app now - and add an activity:</p>
+<ul>
+<li>what happens when add activity is pressed?</li>
+<li>what happens when you press the <code>back</code> button from AddActivity?</li>
+</ul>
+<p>Clearly we are not quite finished yet. In PlacemarkActivity, we need to explicitly finish() the activity - and se a result code:</p>
+<pre><code>...
+      if (placemark.title.isNotEmpty()) {
+        app.placemarks.add(placemark.copy())
+        info(&quot;add Button Pressed: $placemarkTitle&quot;)
+        app.placemarks.forEach { info(&quot;add Button Pressed: ${it}&quot;)}
+        setResult(AppCompatActivity.RESULT_OK)
+        finish()
+      }
+...</code></pre>
+<p>This should end the PlacemarkActivity - and update the List view.</p>
+<p>We can remove the test placemarks from MainApp now:</p>
+<pre><code>  override fun onCreate() {
+    super.onCreate()
+    info(&quot;Placemark started&quot;)
+    // placemarks.add(PlacemarkModel(&quot;One&quot;, &quot;About one...&quot;))
+    // placemarks.add(PlacemarkModel(&quot;Two&quot;, &quot;About two...&quot;))
+    // placemarks.add(PlacemarkModel(&quot;Three&quot;, &quot;About three...&quot;))
+  }</code></pre>
 
       </div>
      
@@ -675,7 +765,7 @@ class PlacemarkAdapter constructor(private var placemarks: List&lt;PlacemarkMode
 <h2>Exercise 1</h2>
 <p>Incorporate new &#39;Cancel&#39; action into <code>PlacemarkActivity</code>. This should return to PlacemarkList without adding a new Placemark, Use the <code>RESULT_CANCELED</code> return code.</p>
 <h2>Exercise 2</h2>
-<p> Introduce the following interface into the <code>models</code> package:</p>
+<p>Introduce the following interface into the <code>models</code> package:</p>
 <pre><code>package org.wit.placemark.model
 
 interface PlacemarkStore {
@@ -688,7 +778,7 @@ interface PlacemarkStore {
 <p>With an instance of an instance of your new class:</p>
 <pre><code>  val placemarkStore = PlacemarkMemStore()</code></pre>
 <p>Refactor PlacemrkActivity &amp; PlacemarkListActivity to use this object instead of the current arrangement.</p>
-<p>Exercise 4</p>
+<h2>Exercise 4</h2>
 <p>Introduce a new method in PlacemarkMemStore which will log all placemarks. Make this an internal method (not in the interface). Call it whenever a new placemark is added.</p>
 
       </div>
