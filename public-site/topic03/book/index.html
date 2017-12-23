@@ -115,7 +115,7 @@ body
   <header class="header item">
     <i id="toc" class="sitemap icon"></i>
     <a href="../index.html">
-      topic
+      Models
     </a>
   </header>
   <div class="right tab-menu menu">
@@ -124,8 +124,8 @@ body
       Lab-03
     </a>
     
-    <a class="item" data-tab="01">
-      01
+    <a class="item" data-tab="Exercise Solutions">
+      Exercise Solutions
     </a>
     
     <a class="item" data-tab="02">
@@ -202,33 +202,326 @@ body
 
       </div>
      
-      <div  class="ui tab segment lab" data-tab="01">
-        <p>#</p>
+      <div  class="ui tab segment lab" data-tab="Exercise Solutions">
+        <h1>Exercise Solutions</h1>
+<h2>Exercise 1</h2>
+<p>Incorporate new &#39;Cancel&#39; action into <code>PlacemarkActivity</code>. This should return to PlacemarkList without adding a new Placemark, Use the <code>RESULT_CANCELED</code> return code.</p>
+<h2>strings.xml</h2>
+<pre><code>...
+  &lt;string name=&quot;menu_cancelPlacemark&quot;&gt;Cancel&lt;/string&gt;
+...</code></pre>
+<h2>menu_placemark.xml</h2>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;menu xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+      xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;&gt;
+
+  &lt;item
+      android:id=&quot;@+id/item_cancel&quot;
+      android:title=&quot;@string/menu_cancelPlacemark&quot;
+      app:showAsAction=&quot;always&quot;/&gt;
+&lt;/menu&gt;</code></pre>
+<h2>PlacemarkActivity</h2>
+<pre><code>...
+ override fun onCreate(savedInstanceState: Bundle?) {
+    ...
+    toolbarAdd.title = title
+    setSupportActionBar(toolbarAdd)
+    ...
+    }
+  }
+...
+
+  override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    menuInflater.inflate(R.menu.menu_placemark, menu)
+    return super.onCreateOptionsMenu(menu)
+  }
+
+  override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    when (item?.itemId) {
+      R.id.item_cancel -&gt; {
+        setResult(RESULT_CANCELED)
+        finish()
+      }
+    }
+    return super.onOptionsItemSelected(item)
+  }
+...</code></pre>
+<h2>Exercise 2 &amp; 3</h2>
+<p>Introduce the following interface into the <code>models</code> package:</p>
+<h2>PlacemarkStore</h2>
+<pre><code>package org.wit.placemark.model
+
+interface PlacemarkStore {
+  fun findAll(): List&lt;PlacemarkModel&gt;
+  fun create(placemark: PlacemarkModel)
+}</code></pre>
+<p>and implement this interface in a class called PlacemarkMemStore</p>
+<h2>PlacemarkMemStore</h2>
+<pre><code>package org.wit.placemark.models
+
+class PlacemarkMemStore : PlacemarkStore {
+
+  val placemarks = ArrayList&lt;PlacemarkModel&gt;()
+
+  override fun findAll(): List&lt;PlacemarkModel&gt; {
+    return placemarks
+  }
+
+  override fun create(placemark: PlacemarkModel) {
+    placemarks.add(placemark)
+  }
+}</code></pre>
+<p>Rework all classes to use the above class:</p>
+<h2>MainApp</h2>
+<pre><code>  // val placemarks = ArrayList&lt;PlacemarkModel&gt;()
+  val placemarks = PlacemarkMemStore()</code></pre>
+<h2>PlacemarkListActivity</h2>
+<pre><code>  // recyclerView.adapter = PlacemarkAdapter(app.placemarks)
+  recyclerView.adapter = PlacemarkAdapter(app.placemarks.findAll())</code></pre>
+<h2>PlacemarkActivity</h2>
+<pre><code>  // app.placemarks.add(placemark.copy())
+  app.placemarks.create(placemark.copy())
+
+  ...
+  // app.placemarks.forEach { info(&quot;add Button Pressed: ${it}&quot;) }
+  app.placemarks.findAll().forEach{ info(&quot;add Button Pressed: ${it}&quot;) }
+  ...</code></pre>
+<h2>Exercise 4</h2>
+<p>Introduce a new method in PlacemarkMemStore which will log all placemarks. Make this an internal method (not in the interface). Call it whenever a new placemark is added.</p>
+<h2>PlacemarkMemStore</h2>
+<pre><code>...
+  override fun create(placemark: PlacemarkModel) {
+    placemarks.add(placemark)
+    logAll()
+  }
+
+  internal fun logAll() {
+   placemarks.forEach{ info(&quot;${it}&quot;) }
+  }
+...</code></pre>
+<h2>PlacemarkActivity</h2>
+<pre><code>        // info(&quot;add Button Pressed: $placemarkTitle&quot;)
+        // app.placemarks.findAll().forEach{ info(&quot;add Button Pressed: ${it}&quot;) }</code></pre>
 
       </div>
      
       <div  class="ui tab segment lab" data-tab="02">
-        <p>#</p>
+        <h1>Refactor PlacemarkAdapter</h1>
+<p>As the PlacemarkAdapter becomes more capable - it might be useful to refactor it into its own file:</p>
+<h2>PlacemarkAdapter</h2>
+<pre><code>package org.wit.placemark.activities
+
+import android.support.v7.widget.RecyclerView
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import kotlinx.android.synthetic.main.card_placemark.view.*
+import org.wit.placemark.R
+import org.wit.placemark.models.PlacemarkModel
+
+class PlacemarkAdapter constructor(private var placemarks: List&lt;PlacemarkModel&gt;) : RecyclerView.Adapter&lt;PlacemarkAdapter.MainHolder&gt;() {
+
+  override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MainHolder {
+    return MainHolder(LayoutInflater.from(parent?.context).inflate(R.layout.card_placemark, parent, false))
+  }
+
+  override fun onBindViewHolder(holder: MainHolder, position: Int) {
+    val placemark = placemarks[holder.adapterPosition]
+    holder.bind(placemark)
+  }
+
+  override fun getItemCount(): Int = placemarks.size
+
+  class MainHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+    fun bind(placemark: PlacemarkModel) {
+      itemView.placemarkTitle.text = placemark.title
+      itemView.description.text = placemark.description
+    }
+  }
+}</code></pre>
+<p>When you remove this class from PlacemarkListActivity - be sure to remove all unused imports (these are greyed out when unused)</p>
+<p>Rebuld and run the app now to verify that these changes have been engaged correctly.</p>
 
       </div>
      
       <div  class="ui tab segment lab" data-tab="03">
-        <p>#</p>
+        <h2>PlacemarkListner</h2>
+<p>In PlacemarkAdapter, introduce this new interface:</p>
+<h2>PlacemarkAdapter</h2>
+<pre><code>interface PlacemarkListener {
+  fun onPlacemarkClick(placemark: PlacemarkModel)
+}</code></pre>
+<p>Place it just before the PlacemarkAdapter class (outside the class).</p>
+<p>This new interface will represent click events on the placemark Card, and allow us to abstract the response to this event.</p>
+<p>Here is a revised version of the Adapter - which accepts and installs an event handler based on this interface:</p>
+<pre><code>
+class PlacemarkAdapter constructor(private var placemarks: List&lt;PlacemarkModel&gt;,
+                                   private val listener: PlacemarkListener) : RecyclerView.Adapter&lt;PlacemarkAdapter.MainHolder&gt;() {
+
+  override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MainHolder {
+    return MainHolder(LayoutInflater.from(parent?.context).inflate(R.layout.card_placemark, parent, false))
+  }
+
+  override fun onBindViewHolder(holder: MainHolder, position: Int) {
+    val placemark = placemarks[holder.adapterPosition]
+    holder.bind(placemark, listener)
+  }
+
+  override fun getItemCount(): Int = placemarks.size
+
+  class MainHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+    fun bind(placemark: PlacemarkModel,  listener : PlacemarkListener) {
+      itemView.placemarkTitle.text = placemark.title
+      itemView.description.text = placemark.description
+      itemView.setOnClickListener { listener.onPlacemarkClick(placemark) }
+    }
+  }
+}</code></pre>
+<p>Look carefully at the very last line of the bind function above:</p>
+<pre><code>      itemView.setOnClickListener { listener.onPlacemarkClick(placemark) }</code></pre>
+<p>Can you figure our that is going on here?</p>
+<p>Perhaps if we now use this capability in PlacemarkListActivity it will become clearer.</p>
+<h2>PlacemarkListActivity</h2>
+<p>First, declare that we will implement the new interface:</p>
+<pre><code>class PlacemarkListActivity : AppCompatActivity(), PlacemarkListener {</code></pre>
+<p>... then the actual implementation:</p>
+<pre><code>  override fun onPlacemarkClick(placemark: PlacemarkModel) {
+    startActivityForResult(intentFor&lt;PlacemarkActivity&gt;(), AppCompatActivity.RESULT_OK)
+  }</code></pre>
+<p>Finally, in onCreate, change the way we create the adapter:</p>
+<pre><code>    recyclerView.adapter = PlacemarkAdapter(app.placemarks.findAll(), this)</code></pre>
+<p>If you run the app now - selecting a placemark from the list will start the PlacemarkActivity</p>
+<p>However, the Placemark we select will not appear in the PlacemarkActivity view. We will fix this in the next steps.</p>
 
       </div>
      
       <div  class="ui tab segment lab" data-tab="04">
-        <p>#</p>
+        <h2>Parcelable</h2>
+<p>We will switch on some additional Kotlin goodness - which will significantly simplify the next set of features.</p>
+<h2>build.gradle</h2>
+<p>Before the dependencies:</p>
+<pre><code>androidExtensions {
+  experimental = true
+}</code></pre>
+<p>These experimental features are discussed here:</p>
+<ul>
+<li><a href="https://kotlinlang.org/docs/tutorials/android-plugin.html">https://kotlinlang.org/docs/tutorials/android-plugin.html</a></li>
+</ul>
+<p>They are now without some issues - but quite usable.</p>
+<p>This is a revised version of the PlacemarkModel class:</p>
+<pre><code>package org.wit.placemark.models
+
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
+data class PlacemarkModel(var title: String = &quot;&quot;,
+                          var description: String = &quot;&quot;) : Parcelable</code></pre>
+<p>It implements a parcelize capability. This is discussed in detail here:</p>
+<ul>
+<li><a href="&#109;&#x61;&#105;&#x6c;&#116;&#111;&#58;&#x68;&#x74;&#116;&#x70;&#115;&#58;&#x2f;&#47;&#x6d;&#101;&#x64;&#x69;&#x75;&#x6d;&#x2e;&#x63;&#111;&#x6d;&#x2f;&#x40;&#66;&#x6c;&#97;&#100;&#101;&#67;&#x6f;&#100;&#x65;&#x72;&#x2f;&#114;&#101;&#x64;&#117;&#99;&#x69;&#x6e;&#x67;&#45;&#x70;&#97;&#x72;&#x63;&#x65;&#x6c;&#97;&#98;&#x6c;&#x65;&#45;&#x62;&#111;&#105;&#108;&#x65;&#x72;&#x70;&#x6c;&#97;&#x74;&#101;&#x2d;&#x63;&#x6f;&#x64;&#x65;&#45;&#117;&#115;&#x69;&#110;&#x67;&#x2d;&#107;&#111;&#x74;&#108;&#x69;&#110;&#x2d;&#55;&#x34;&#x31;&#x63;&#x33;&#x31;&#x32;&#x34;&#97;&#52;&#x39;&#97;">&#x68;&#x74;&#116;&#x70;&#115;&#58;&#x2f;&#47;&#x6d;&#101;&#x64;&#x69;&#x75;&#x6d;&#x2e;&#x63;&#111;&#x6d;&#x2f;&#x40;&#66;&#x6c;&#97;&#100;&#101;&#67;&#x6f;&#100;&#x65;&#x72;&#x2f;&#114;&#101;&#x64;&#117;&#99;&#x69;&#x6e;&#x67;&#45;&#x70;&#97;&#x72;&#x63;&#x65;&#x6c;&#97;&#98;&#x6c;&#x65;&#45;&#x62;&#111;&#105;&#108;&#x65;&#x72;&#x70;&#x6c;&#97;&#x74;&#101;&#x2d;&#x63;&#x6f;&#x64;&#x65;&#45;&#117;&#115;&#x69;&#110;&#x67;&#x2d;&#107;&#111;&#x74;&#108;&#x69;&#110;&#x2d;&#55;&#x34;&#x31;&#x63;&#x33;&#x31;&#x32;&#x34;&#97;&#52;&#x39;&#97;</a></li>
+</ul>
+<p>...but this was written without using the new feature we have just enabled, which dramatically reduces the boilerplate even further. Our approach is discussed here:</p>
+<ul>
+<li><a href="https://kotlinlang.org/docs/tutorials/android-plugin.html">https://kotlinlang.org/docs/tutorials/android-plugin.html</a></li>
+</ul>
+<p>(towards the end)</p>
+<p>Currently, the Studio may show an error:</p>
+<p><img src="img/01.png" alt=""></p>
+<p>Even when you resync gradle - a residue error may still be shown:</p>
+<p><img src="img/02.png" alt=""></p>
+<p>You CAN safely ignore this - as the facility will in fact work.</p>
 
       </div>
      
       <div  class="ui tab segment lab" data-tab="05">
-        <p>#</p>
+        <h1>StartActivityWithData</h1>
+<p>We can now pass the selected placemark when we start PlacemarkActivity:</p>
+<p>Change the current onPlacemarkClick implementation:</p>
+<h2>PlacemarkListActivity</h2>
+<pre><code>  override fun onPlacemarkClick(placemark: PlacemarkModel) {
+    startActivityForResult(intentFor&lt;PlacemarkActivity&gt;(), AppCompatActivity.RESULT_OK)
+  }</code></pre>
+<p>to this:</p>
+<pre><code>  override fun onPlacemarkClick(placemark: PlacemarkModel) {
+    startActivityForResult(intentFor&lt;PlacemarkActivity&gt;().putExtra(&quot;placemark_edit&quot;, placemark), AppCompatActivity.RESULT_OK)
+  }</code></pre>
+<p>Notice we are passing the selected placemark to the activity - this is enabled via the <code>parcelable</code> mechanism we have just turned on.</p>
+<p>Now, in PlacemarkActivity, we can retrieve the placemark in <code>onCreate()</code></p>
+<pre><code>  override fun onCreate(savedInstanceState: Bundle?) {
+
+    ...
+    if (intent.hasExtra(&quot;placemark_edit&quot;)) {
+      placemark = intent.extras.getParcelable&lt;PlacemarkModel&gt;(&quot;placemark_edit&quot;)
+      placemarkTitle.setText(placemark.title)
+      description.setText(placemark.description)
+    }
+    ...
+  }</code></pre>
+<p>We read back the placemark, and place its field into the view controls.</p>
+<p>Run the app now - and verify that if you select a placemark - you will be taken to the PlacemakrActivity containing its values.</p>
 
       </div>
      
       <div  class="ui tab segment lab" data-tab="06">
-        <p>#</p>
+        <h1>Ids</h1>
+<p>Currently, we &#39;edit&#39; a placemark, make a change - then it will create a new placemark. This clearly is not the appropriate behavior. We should update the placemark we have been passed.</p>
+<p>To do this, we need a unique way of identifying placemarks - this is usually via an id. This is the current model:</p>
+<pre><code>@Parcelize
+data class PlacemarkModel(var title: String = &quot;&quot;,
+                          var description: String = &quot;&quot;) : Parcelable</code></pre>
+<p>This is a revised version to include an ID:</p>
+<pre><code>@Parcelize
+data class PlacemarkModel(var id: Long = 0,
+                          var title: String = &quot;&quot;,
+                          var description: String = &quot;&quot;) : Parcelable</code></pre>
+<p>We can now introduce a new method in PlacemarkStore:</p>
+<h2>PlacemarkStore</h2>
+<pre><code>...
+  fun update(placemark: PlacemarkModel)
+...</code></pre>
+<p>... and this is a revised PlacemarkMemStore implementation:</p>
+<pre><code>package org.wit.placemark.models
+
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
+
+var lastId = 0L
+
+internal fun getId(): Long {
+  return lastId++
+}
+
+class PlacemarkMemStore : PlacemarkStore, AnkoLogger {
+
+  val placemarks = ArrayList&lt;PlacemarkModel&gt;()
+
+  override fun findAll(): List&lt;PlacemarkModel&gt; {
+    return placemarks
+  }
+
+  override fun create(placemark: PlacemarkModel) {
+    placemark.id = getId()
+    placemarks.add(placemark)
+    logAll()
+  }
+
+  override fun update(placemark: PlacemarkModel) {
+    var foundPlacemark: PlacemarkModel? = placemarks.find { p -&gt; p.id == placemark.id }
+    if (foundPlacemark != null) {
+      foundPlacemark.title = placemark.title
+      foundPlacemark.description = placemark.description
+    }
+  }
+
+  internal fun logAll() {
+    placemarks.forEach { info(&quot;${it}&quot;) }
+  }
+}</code></pre>
+<p>Notice how we are generating a new ID when we create placemarks.</p>
+<p>These features will enable us to implement a placemark edit behaviour (see Exercises)</p>
 
       </div>
      
@@ -239,16 +532,30 @@ body
 <li><a href="archives/archive.zip">archive.zip</a></li>
 </ul>
 <h2>Exercise 1</h2>
+<p>In PlacemarkActivity - we have the following hard coded strings:</p>
+<h2>PlacemarkActivity</h2>
+<pre><code>...
+  btnAdd.setText(&quot;Save Placemark&quot;)
+...  
+  toast(&quot;Please Enter a title&quot;)</code></pre>
+<p>These strings should be in the strings.xml resource file. Move them in there, and figure out how to load the strings in PlacemarkActivity.</p>
+<p>For guidance, see:</p>
+<ul>
+<li><a href="https://developer.android.com/guide/topics/resources/string-resource.html">https://developer.android.com/guide/topics/resources/string-resource.html</a></li>
+<li><a href="https://stackoverflow.com/questions/44871481/how-can-i-access-values-from-strings-xml-in-kotlin-android">https://stackoverflow.com/questions/44871481/how-can-i-access-values-from-strings-xml-in-kotlin-android</a></li>
+</ul>
+<h2>Exercise 2</h2>
 <p>When you select a placemark from PlacemarkList Activity - it presents the activity in the PlacemarkActivity. If you edit the activity, and press &#39;Create&#39; - a new activity is created and appended to the list.</p>
 <p>Change this behaviour along the following lines:</p>
 <ul>
-<li>When PlacemarkActivity is opened in this way - the button label &#39;add placemark&#39; should be named &#39;save placemark&#39;</li>
-<li>pressing the button should update the existing placemark with the newly entered values, not create  new one. </li>
+<li>When PlacemarkActivity is opened in this way - the button label &#39;add placemark&#39; should be named &#39;save placemark&#39;. Make sure you are creating the string resources in strings.xml</li>
+<li>Pressing the button should update the existing placemark with the newly entered values, not create  new one. </li>
 </ul>
-<p>We have new features in PlacemarkStore to enable you to implement this. </p>
-<p>If you complete the implementation, you will notice that even if you update a Placemarks contents, the new contents will not be displayed in PlacemarkList. However, if you consult the logs you may be able to see if the values are actually changed. </p>
-<p>Exercise 2 below will modify PlacemarkList to always to show the latest placemark store.</p>
-<h2>Exercise 2</h2>
+<p>We have new features in PlacemarkStore to enable you to implement this (the update method)</p>
+<p>If you complete the implementation, you will notice that even if you update a Placemark&#39;s contents, the new contents will not be displayed in PlacemarkList. However, if you consult the logs you may be able to see if the values are actually changed. </p>
+<p>Exercise 3 below will modify PlacemarkList to always to show the latest placemark store.</p>
+<h2>Exercise 3</h2>
+<p>In order to update the placemarklist correctly, we need to change how we launch and receive results from PlacemarkActivity. Here is a revised implementation of three key methods:</p>
 <h2>PlacemarkListActivity</h2>
 <pre><code>  override fun onPlacemarkClick(placemark: PlacemarkModel) {
     startActivityForResult(intentFor&lt;PlacemarkActivity&gt;().putExtra(&quot;placemark_edit&quot;, placemark), 200)
@@ -265,6 +572,8 @@ body
     recyclerView.adapter.notifyDataSetChanged()
     super.onActivityResult(requestCode, resultCode, data)
   }</code></pre>
+<p>Look carefully at the changes we have introduced - in particular notice the extra values we pass to startActivity.</p>
+<p>If you solved Exercise 2 - then the above implementation should now correctly update the list.</p>
 
       </div>
      
