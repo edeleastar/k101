@@ -7,10 +7,12 @@
 
      
 
+     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
      <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css" type="text/css">
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/railscasts.min.css" rel="stylesheet" />
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/solarized-light.min.css" rel="stylesheet" />
 
      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.min.js"></script>
@@ -225,7 +227,8 @@ body
 <h1>Solution</h1>
 <p>Implement OnMapMarkerDragListener:</p>
 <h2>MapsActivity</h2>
-<pre><code>class MapsActivity : AppCompatActivity(), OnMapReadyCallback,  GoogleMap.OnMarkerDragListener {
+<pre><code>lass MapsActivity : AppCompatActivity(), OnMapReadyCallback,  GoogleMap.OnMarkerDragListener, GoogleMap.OnMarkerClickListener {
+
 
 ...
   override fun onMarkerClick(marker: Marker): Boolean {
@@ -697,12 +700,29 @@ class PlacemarkStoreRoom(val context: Context) : PlacemarkStore {
 <li>Using RoomStore - try the same experiment. This time the placemarks should persist between application terminations.</li>
 </ul>
 <h2>Exercise 2</h2>
-<p>Currently we have no way of deleting placemarks. Three possible strategies:</p>
+<p>Currently we have no way of deleting placemarks. To support delete, you will need to extend the PlacemarkStore to support removal of placemarks, and then implement this in PlacemarkMemStore and PlacemarkStoreRoom. These are the implementations you will need:</p>
+<h2>PlacemarkStore</h2>
+<pre><code>  fun delete(placemark: PlacemarkModel)</code></pre>
+<h2>PlacemarkMemStore</h2>
+<pre><code>  override fun delete(placemark: PlacemarkModel) {
+    placemarks.remove(placemark)
+  }</code></pre>
+<h2>PlacemarkDao</h2>
+<pre><code>  @Delete
+  fun deletePlacemark(placemark: PlacemarkModel)</code></pre>
+<h2>PlacemarkStoreRoom</h2>
+<pre><code>  override fun delete(placemark: PlacemarkModel) {
+    bg {
+      dao.deletePlacemark(placemark)
+    }
+  }</code></pre>
+<p>To trigger the actual deletion, three possible strategies could be used:</p>
 <ul>
 <li>Introduce a new <code>delete</code> button alongside the <code>cancel</code> button on the PlacemarkActivity</li>
 <li>Support <code>long press</code> on a placemark in PlacemarkListActivity</li>
 <li>Support <code>swipe</code> on a placemark in PlacemarkListActivity</li>
 </ul>
+<p>Implement one of these strategies</p>
 
       </div>
      

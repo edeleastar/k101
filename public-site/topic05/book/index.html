@@ -7,10 +7,12 @@
 
      
 
+     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
      <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css" type="text/css">
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/railscasts.min.css" rel="stylesheet" />
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/solarized-light.min.css" rel="stylesheet" />
 
      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.min.js"></script>
@@ -688,7 +690,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         <h1>Recover Location from Activity</h1>
 <p>Currently, when you press back from the MapsActivity, any change made in the marker by the user us lost. We need to address this now.</p>
 <p>First, make these changes to ActivityPlacemark class members:</p>
-<h2>ActivityPlacemark</h2>
+<h2>PlacemarkActivity</h2>
 <pre><code>  val LOCATION_REQUEST = 2
   var location = Location(52.245696, -7.139102, 15f)</code></pre>
 <p>When we start the map, we pass the LOCATION_REQUEST  code:</p>

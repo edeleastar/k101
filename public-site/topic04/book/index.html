@@ -7,10 +7,12 @@
 
      
 
+     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
      <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css" type="text/css">
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/railscasts.min.css" rel="stylesheet" />
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/solarized-light.min.css" rel="stylesheet" />
 
      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.min.js"></script>
@@ -231,7 +233,7 @@ body
   &lt;string name=&quot;enter_placemark_title&quot;&gt; Please enter a Placemark Title &lt;/string&gt;
 
 &lt;/resources&gt;</code></pre>
-<h2>PlacemarkActicity</h2>
+<h2>PlacemarkActivity</h2>
 <pre><code>package org.wit.placemark.activities
 
 import android.support.v7.app.AppCompatActivity
@@ -416,6 +418,9 @@ fun showImagePicker(parent: Activity, id: Int) {
   val chooser = Intent.createChooser(intent, R.string.select_placemark_image.toString())
   parent.startActivityForResult(chooser, id)
 }</code></pre>
+<p>This function relies on this new string in strings.xml:</p>
+<h2>strings.xml</h2>
+<pre><code>&lt;string name=&quot;select_placemark_image&quot;&gt;Select placemark image&lt;/string&gt;</code></pre>
 <p>Notice that this is just a function, not a class or an object. Its purpose is to show an image picker dialog. This particular approach is only available in API level 19 on, so we will need retain this as a minimum for or application build.</p>
 <p>This picker is based on the Storage Access Framework (SAF) - discussed here:</p>
 <ul>

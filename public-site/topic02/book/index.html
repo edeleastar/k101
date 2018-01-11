@@ -7,10 +7,12 @@
 
      
 
+     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
      <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css" type="text/css">
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/railscasts.min.css" rel="stylesheet" />
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/solarized-light.min.css" rel="stylesheet" />
 
      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.min.js"></script>
@@ -307,7 +309,7 @@ body
      
       <div  class="ui tab segment lab" data-tab="02">
         <h1>MainApp</h1>
-<p>Create a new package called <code>org.wit.placemark.wit</code>, and introduce this class:</p>
+<p>Create a new package called <code>org.wit.placemark.main</code>, and introduce this class:</p>
 <h2>MainApp</h2>
 <pre><code>package org.wit.placemark.main
 
@@ -423,7 +425,7 @@ class MainApp : Application(), AnkoLogger {
         ...</code></pre>
 <p>This is using the <code>lateint</code> qualifier. See this short discussion here:</p>
 <ul>
-<li><a href="&#109;&#x61;&#x69;&#108;&#116;&#x6f;&#58;&#x68;&#x74;&#116;&#112;&#115;&#x3a;&#x2f;&#x2f;&#109;&#101;&#x64;&#105;&#117;&#x6d;&#x2e;&#x63;&#x6f;&#x6d;&#47;&#64;&#x6d;&#x6f;&#x68;&#105;&#116;&#x73;&#x68;&#97;&#114;&#109;&#97;&#x5f;&#52;&#x39;&#51;&#54;&#51;&#x2f;&#x61;&#x6e;&#100;&#x72;&#x6f;&#x69;&#x64;&#45;&#107;&#111;&#116;&#108;&#x69;&#x6e;&#x2d;&#x6c;&#97;&#122;&#121;&#45;&#108;&#97;&#116;&#x65;&#x69;&#110;&#105;&#116;&#45;&#97;&#x6e;&#x64;&#45;&#x64;&#x65;&#108;&#x65;&#103;&#x61;&#x74;&#101;&#115;&#x2d;&#57;&#x65;&#53;&#102;&#48;&#x31;&#99;&#53;&#54;&#49;&#100;&#x63;">&#x68;&#x74;&#116;&#112;&#115;&#x3a;&#x2f;&#x2f;&#109;&#101;&#x64;&#105;&#117;&#x6d;&#x2e;&#x63;&#x6f;&#x6d;&#47;&#64;&#x6d;&#x6f;&#x68;&#105;&#116;&#x73;&#x68;&#97;&#114;&#109;&#97;&#x5f;&#52;&#x39;&#51;&#54;&#51;&#x2f;&#x61;&#x6e;&#100;&#x72;&#x6f;&#x69;&#x64;&#45;&#107;&#111;&#116;&#108;&#x69;&#x6e;&#x2d;&#x6c;&#97;&#122;&#121;&#45;&#108;&#97;&#116;&#x65;&#x69;&#110;&#105;&#116;&#45;&#97;&#x6e;&#x64;&#45;&#x64;&#x65;&#108;&#x65;&#103;&#x61;&#x74;&#101;&#115;&#x2d;&#57;&#x65;&#53;&#102;&#48;&#x31;&#99;&#53;&#54;&#49;&#100;&#x63;</a></li>
+<li><a href="&#x6d;&#x61;&#x69;&#x6c;&#x74;&#x6f;&#58;&#104;&#x74;&#116;&#112;&#x73;&#58;&#47;&#x2f;&#109;&#x65;&#100;&#105;&#117;&#x6d;&#46;&#x63;&#111;&#x6d;&#47;&#x40;&#109;&#111;&#104;&#105;&#116;&#115;&#x68;&#x61;&#114;&#109;&#97;&#95;&#52;&#x39;&#x33;&#x36;&#x33;&#47;&#97;&#110;&#100;&#114;&#x6f;&#105;&#100;&#x2d;&#107;&#x6f;&#x74;&#x6c;&#x69;&#x6e;&#45;&#x6c;&#x61;&#122;&#121;&#45;&#108;&#97;&#x74;&#x65;&#x69;&#x6e;&#x69;&#116;&#45;&#x61;&#110;&#100;&#45;&#x64;&#101;&#x6c;&#101;&#103;&#97;&#x74;&#x65;&#x73;&#45;&#x39;&#101;&#53;&#x66;&#48;&#49;&#99;&#53;&#x36;&#x31;&#100;&#x63;">&#104;&#x74;&#116;&#112;&#x73;&#58;&#47;&#x2f;&#109;&#x65;&#100;&#105;&#117;&#x6d;&#46;&#x63;&#111;&#x6d;&#47;&#x40;&#109;&#111;&#104;&#105;&#116;&#115;&#x68;&#x61;&#114;&#109;&#97;&#95;&#52;&#x39;&#x33;&#x36;&#x33;&#47;&#97;&#110;&#100;&#114;&#x6f;&#105;&#100;&#x2d;&#107;&#x6f;&#x74;&#x6c;&#x69;&#x6e;&#45;&#x6c;&#x61;&#122;&#121;&#45;&#108;&#97;&#x74;&#x65;&#x69;&#x6e;&#x69;&#116;&#45;&#x61;&#110;&#100;&#45;&#x64;&#101;&#x6c;&#101;&#103;&#97;&#x74;&#x65;&#x73;&#45;&#x39;&#101;&#53;&#x66;&#48;&#49;&#99;&#53;&#x36;&#x31;&#100;&#x63;</a></li>
 </ul>
 
       </div>
