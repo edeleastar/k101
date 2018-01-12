@@ -12,7 +12,7 @@
      <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css" type="text/css">
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/solarized-light.min.css" rel="stylesheet" />
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/railscasts.min.css" rel="stylesheet" />
 
      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.min.js"></script>
@@ -435,7 +435,7 @@ data class PlacemarkModel(var title: String = &quot;&quot;,
                           var description: String = &quot;&quot;) : Parcelable</code></pre>
 <p>It implements a parcelize capability. This is discussed in detail here:</p>
 <ul>
-<li><a href="&#x6d;&#x61;&#105;&#108;&#116;&#111;&#x3a;&#x68;&#x74;&#116;&#x70;&#x73;&#x3a;&#x2f;&#x2f;&#x6d;&#x65;&#100;&#105;&#117;&#x6d;&#46;&#x63;&#x6f;&#109;&#47;&#x40;&#66;&#108;&#97;&#x64;&#x65;&#x43;&#x6f;&#x64;&#101;&#x72;&#x2f;&#x72;&#101;&#100;&#117;&#x63;&#105;&#x6e;&#x67;&#x2d;&#112;&#97;&#114;&#x63;&#101;&#108;&#x61;&#x62;&#x6c;&#101;&#x2d;&#x62;&#x6f;&#x69;&#108;&#x65;&#x72;&#112;&#x6c;&#x61;&#x74;&#x65;&#45;&#x63;&#x6f;&#100;&#101;&#45;&#117;&#115;&#105;&#x6e;&#103;&#45;&#107;&#x6f;&#x74;&#108;&#x69;&#110;&#45;&#55;&#52;&#x31;&#x63;&#51;&#x31;&#x32;&#52;&#x61;&#x34;&#57;&#x61;">&#x68;&#x74;&#116;&#x70;&#x73;&#x3a;&#x2f;&#x2f;&#x6d;&#x65;&#100;&#105;&#117;&#x6d;&#46;&#x63;&#x6f;&#109;&#47;&#x40;&#66;&#108;&#97;&#x64;&#x65;&#x43;&#x6f;&#x64;&#101;&#x72;&#x2f;&#x72;&#101;&#100;&#117;&#x63;&#105;&#x6e;&#x67;&#x2d;&#112;&#97;&#114;&#x63;&#101;&#108;&#x61;&#x62;&#x6c;&#101;&#x2d;&#x62;&#x6f;&#x69;&#108;&#x65;&#x72;&#112;&#x6c;&#x61;&#x74;&#x65;&#45;&#x63;&#x6f;&#100;&#101;&#45;&#117;&#115;&#105;&#x6e;&#103;&#45;&#107;&#x6f;&#x74;&#108;&#x69;&#110;&#45;&#55;&#52;&#x31;&#x63;&#51;&#x31;&#x32;&#52;&#x61;&#x34;&#57;&#x61;</a></li>
+<li><a href="&#x6d;&#x61;&#x69;&#x6c;&#116;&#111;&#58;&#104;&#x74;&#x74;&#x70;&#x73;&#58;&#47;&#x2f;&#x6d;&#x65;&#100;&#105;&#117;&#109;&#x2e;&#99;&#111;&#x6d;&#x2f;&#64;&#66;&#108;&#x61;&#x64;&#101;&#67;&#x6f;&#100;&#x65;&#114;&#47;&#x72;&#x65;&#100;&#117;&#x63;&#x69;&#110;&#103;&#x2d;&#x70;&#97;&#x72;&#x63;&#101;&#108;&#x61;&#x62;&#108;&#101;&#45;&#98;&#111;&#x69;&#x6c;&#101;&#114;&#112;&#108;&#x61;&#116;&#x65;&#x2d;&#x63;&#x6f;&#100;&#101;&#x2d;&#x75;&#115;&#x69;&#110;&#103;&#x2d;&#107;&#111;&#x74;&#x6c;&#105;&#x6e;&#x2d;&#x37;&#x34;&#49;&#99;&#x33;&#49;&#x32;&#x34;&#97;&#x34;&#x39;&#x61;">&#104;&#x74;&#x74;&#x70;&#x73;&#58;&#47;&#x2f;&#x6d;&#x65;&#100;&#105;&#117;&#109;&#x2e;&#99;&#111;&#x6d;&#x2f;&#64;&#66;&#108;&#x61;&#x64;&#101;&#67;&#x6f;&#100;&#x65;&#114;&#47;&#x72;&#x65;&#100;&#117;&#x63;&#x69;&#110;&#103;&#x2d;&#x70;&#97;&#x72;&#x63;&#101;&#108;&#x61;&#x62;&#108;&#101;&#45;&#98;&#111;&#x69;&#x6c;&#101;&#114;&#112;&#108;&#x61;&#116;&#x65;&#x2d;&#x63;&#x6f;&#100;&#101;&#x2d;&#x75;&#115;&#x69;&#110;&#103;&#x2d;&#107;&#111;&#x74;&#x6c;&#105;&#x6e;&#x2d;&#x37;&#x34;&#49;&#99;&#x33;&#49;&#x32;&#x34;&#97;&#x34;&#x39;&#x61;</a></li>
 </ul>
 <p>...but this was written without using the new feature we have just enabled, which dramatically reduces the boilerplate even further. Our approach is discussed here:</p>
 <ul>
