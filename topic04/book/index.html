@@ -1,0 +1,606 @@
+ <!DOCTYPE html>
+ <html>
+   <head>
+
+     <meta charset="utf-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+     
+
+     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
+     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css" type="text/css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/solarized-light.min.css" rel="stylesheet" />
+
+     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.min.js"></script>
+     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
+     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/java.min.js"></script>
+     <script>hljs.initHighlightingOnLoad();</script>
+
+     
+
+     <style>
+       
+
+body 
+{
+  font-family: "Open Sans", "Helvetica", "Helvetica Neue",  "Arial", sans-serif;
+}
+
+figcaption
+{
+  margin-bottom: 20px;
+}
+
+.vertical-align
+{
+  display: flex;
+  align-items: center;
+}
+
+.ui.segment.pushable
+{
+  margin: 0;
+  padding: 1rem 0;
+  overflow: visible;
+}
+
+
+
+     </style>
+
+   </head>
+
+  <body>
+    
+
+<style>
+  
+
+code
+{
+  font-family: "Monaco";
+  font-size: 110%;
+}
+
+img
+{
+  padding:1px;
+  border:1px solid black;
+}
+
+h1
+{
+  font-style:italic;
+  font-size:130%;
+  border-bottom:thin solid black;
+}
+
+h2
+{
+  font-size:110%;
+  border-bottom: thin solid black;
+}
+
+h3
+{
+  font-size:100%;
+  border-bottom: thin solid black;
+}
+
+body
+{
+  overflow-y: scroll;
+}
+
+.pushable > .pusher
+{
+  padding-bottom: 1.5rem;
+}
+
+.ui.segment.pushable
+{
+  margin: 0;
+  padding: 1rem 0;
+  overflow: visible;
+}
+
+
+
+</style>
+
+<div class="ui fixed top pointing inverted stackable menu labmenu">
+  <header class="header item">
+    <i id="toc" class="sitemap icon"></i>
+    <a href="../index.html">
+      Images
+    </a>
+  </header>
+  <div class="right tab-menu menu">
+    
+    <a class="item" data-tab="Lab-04">
+      Lab-04
+    </a>
+    
+    <a class="item" data-tab="Exercise Solutions">
+      Exercise Solutions
+    </a>
+    
+    <a class="item" data-tab="02">
+      02
+    </a>
+    
+    <a class="item" data-tab="03">
+      03
+    </a>
+    
+    <a class="item" data-tab="04">
+      04
+    </a>
+    
+    <a class="item" data-tab="05">
+      05
+    </a>
+    
+    <a class="item" data-tab="06.Exercises">
+      06.Exercises
+    </a>
+    
+    <div class="item">
+      
+    </div>
+  </div>
+</div>
+
+<div class="ui segment pushable">
+  <div class="ui inverted labeled icon left inline vertical sidebar menu">
+    <br><br>
+    
+      
+        <a class="item" href="../../topic01/book-1/index.html">
+          Lab-01
+        </a>
+      
+    
+      
+        <a class="item" href="../../topic02/book/index.html">
+          Lab-02
+        </a>
+      
+    
+      
+        <a class="item" href="../../topic03/book/index.html">
+          Lab-03
+        </a>
+      
+    
+      
+        <a class="active item" href="../../topic04/book/index.html">
+          Lab-04
+        </a>
+      
+    
+      
+        <a class="item" href="../../topic05/book/index.html">
+          Lab-05
+        </a>
+      
+    
+      
+        <a class="item" href="../../topic06/book/index.html">
+          Lab-06
+        </a>
+      
+    
+      
+        <a class="item" href="../../topic07/book/index.html">
+          Lab-07
+        </a>
+      
+    
+  </div>
+  <div class="pusher" tabindex="-1">
+    <div class="ui basic segment" id="labchat">
+      <br>
+      
+      <div  class="ui tab segment lab" data-tab="Lab-04">
+        <h1>Objectives</h1>
+
+      </div>
+     
+      <div  class="ui tab segment lab" data-tab="Exercise Solutions">
+        <h2>Exercise Solutions</h2>
+<h2>Exercise 1 &amp; 2</h2>
+<h2>strings.xml</h2>
+<pre><code>&lt;resources&gt;
+  &lt;string name=&quot;app_name&quot;&gt;Placemark&lt;/string&gt;
+  &lt;string name=&quot;hint_placemarkTitle&quot;&gt;Placemark Title&lt;/string&gt;
+  &lt;string name=&quot;hint_placemarkDescription&quot;&gt;Description &lt;/string&gt;
+  &lt;string name=&quot;button_addPlacemark&quot;&gt;Add Placemark&lt;/string&gt;
+  &lt;string name=&quot;menu_addPlacemark&quot;&gt;Add&lt;/string&gt;
+  &lt;string name=&quot;menu_cancelPlacemark&quot;&gt;Cancel&lt;/string&gt;
+  &lt;string name=&quot;save_placemark&quot;&gt; Save Placemark &lt;/string&gt;
+  &lt;string name=&quot;enter_placemark_title&quot;&gt; Please enter a Placemark Title &lt;/string&gt;
+
+&lt;/resources&gt;</code></pre>
+<h2>PlacemarkActivity</h2>
+<pre><code>package org.wit.placemark.activities
+
+import android.support.v7.app.AppCompatActivity
+import android.os.Bundle
+import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
+import kotlinx.android.synthetic.main.activity_placemark.*
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
+import org.jetbrains.anko.startActivityForResult
+import org.jetbrains.anko.toast
+import org.wit.placemark.R
+import org.wit.placemark.main.MainApp
+import org.wit.placemark.models.PlacemarkModel
+
+class PlacemarkActivity : AppCompatActivity(), AnkoLogger {
+
+  var placemark = PlacemarkModel()
+  lateinit var app: MainApp
+  var edit = false
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_placemark)
+    app = application as MainApp
+
+    toolbarAdd.title = title
+    setSupportActionBar(toolbarAdd)
+
+    if (intent.hasExtra(&quot;placemark_edit&quot;)) {
+      edit = true
+      btnAdd.setText(R.string.save_placemark)
+      placemark = intent.extras.getParcelable&lt;PlacemarkModel&gt;(&quot;placemark_edit&quot;)
+      placemarkTitle.setText(placemark.title)
+      description.setText(placemark.description)
+    }
+
+    btnAdd.setOnClickListener() {
+      placemark.title = placemarkTitle.text.toString()
+      placemark.description = description.text.toString()
+
+      if (edit) {
+        app.placemarks.update(placemark.copy())
+        setResult(201)
+        finish()
+      }
+      else {
+        if (placemark.title.isNotEmpty()) {
+          app.placemarks.create(placemark.copy())
+          setResult(200)
+          finish()
+        }
+        else {
+          toast(R.string.enter_placemark_title)
+        }
+      }
+    }
+  }
+
+  override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    menuInflater.inflate(R.menu.menu_placemark, menu)
+    return super.onCreateOptionsMenu(menu)
+  }
+
+  override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    when (item?.itemId) {
+      R.id.item_cancel -&gt; {
+        setResult(RESULT_CANCELED)
+        finish()
+      }
+    }
+    return super.onOptionsItemSelected(item)
+  }
+}</code></pre>
+<h2>PlacemarkListActivity</h2>
+<pre><code>package org.wit.placemark.activities
+
+import android.content.Intent
+import android.support.v7.app.AppCompatActivity
+import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
+import android.view.*
+import kotlinx.android.synthetic.main.activity_placemark_list.*
+import org.jetbrains.anko.intentFor
+import org.jetbrains.anko.startActivityForResult
+import org.wit.placemark.R
+import org.wit.placemark.main.MainApp
+import org.wit.placemark.models.PlacemarkModel
+
+class PlacemarkListActivity : AppCompatActivity(), PlacemarkListener {
+
+  lateinit var app: MainApp
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_placemark_list)
+    app = application as MainApp
+
+    toolbarMain.title = title
+    setSupportActionBar(toolbarMain)
+
+    val layoutManager = LinearLayoutManager(this)
+    recyclerView.layoutManager = layoutManager
+    recyclerView.adapter = PlacemarkAdapter(app.placemarks.findAll(), this)
+  }
+
+  override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    menuInflater.inflate(R.menu.menu_main, menu)
+    return super.onCreateOptionsMenu(menu)
+  }
+
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    recyclerView.adapter.notifyDataSetChanged()
+    super.onActivityResult(requestCode, resultCode, data)
+  }
+
+  override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    when (item?.itemId) {
+      R.id.item_add -&gt; startActivityForResult&lt;PlacemarkActivity&gt;(200)
+    }
+    return super.onOptionsItemSelected(item)
+  }
+
+  override fun onPlacemarkClick(placemark: PlacemarkModel) {
+    startActivityForResult(intentFor&lt;PlacemarkActivity&gt;().putExtra(&quot;placemark_edit&quot;, placemark), 201)
+  }
+}</code></pre>
+
+      </div>
+     
+      <div  class="ui tab segment lab" data-tab="02">
+        <h1>Add Image UI</h1>
+<h2>strings.xml</h2>
+<p>A new string for the button we will introduce:</p>
+<pre><code>  &lt;string name=&quot;button_addImage&quot;&gt; Add Image &lt;/string&gt;</code></pre>
+<h2>activity_placemark.xml</h2>
+<p>Two new controls:</p>
+<pre><code>        &lt;Button
+            android:id=&quot;@+id/chooseImage&quot;
+            android:layout_width=&quot;match_parent&quot;
+            android:layout_height=&quot;wrap_content&quot;
+            android:layout_margin=&quot;16dp&quot;
+            android:background=&quot;@color/colorAccent&quot;
+            android:paddingBottom=&quot;8dp&quot;
+            android:paddingTop=&quot;8dp&quot;
+            android:text=&quot;@string/button_addImage&quot;
+            android:textColor=&quot;@color/colorPrimary&quot;
+            android:textSize=&quot;16sp&quot;/&gt;
+
+        &lt;ImageView
+            android:id=&quot;@+id/placemarkImage&quot;
+            android:layout_width=&quot;match_parent&quot;
+            android:layout_height=&quot;wrap_content&quot;
+            app:srcCompat=&quot;@mipmap/ic_launcher&quot;/&gt;</code></pre>
+<p>The view should look like this now:</p>
+<p><img src="img/01.png" alt=""></p>
+<p>We can add an event handler for the new button:</p>
+<h2>PlacemarkActivity</h2>
+<pre><code>    chooseImage.setOnClickListener {
+      info (&quot;Select image&quot;)
+    }</code></pre>
+<p>Note that this is <strong>inside</strong> the onCreate method. When you click on the button check that the log message is produced.</p>
+
+      </div>
+     
+      <div  class="ui tab segment lab" data-tab="03">
+        <h1>Selecting Images</h1>
+<p>Create a folder called <code>org.wit.placemark.helpers</code>, and incorporate this class helper method:</p>
+<h2>ImageHelpers</h2>
+<pre><code>package org.wit.placemark.helpers
+
+import android.app.Activity
+import android.content.Intent
+import org.wit.placemark.R
+
+fun showImagePicker(parent: Activity, id: Int) {
+  val intent = Intent()
+  intent.type = &quot;image/*&quot;
+  intent.action = Intent.ACTION_OPEN_DOCUMENT
+  intent.addCategory(Intent.CATEGORY_OPENABLE)
+  val chooser = Intent.createChooser(intent, R.string.select_placemark_image.toString())
+  parent.startActivityForResult(chooser, id)
+}</code></pre>
+<p>This function relies on this new string in strings.xml:</p>
+<h2>strings.xml</h2>
+<pre><code>&lt;string name=&quot;select_placemark_image&quot;&gt;Select placemark image&lt;/string&gt;</code></pre>
+<p>Notice that this is just a function, not a class or an object. Its purpose is to show an image picker dialog. This particular approach is only available in API level 19 on, so we will need retain this as a minimum for or application build.</p>
+<p>This picker is based on the Storage Access Framework (SAF) - discussed here:</p>
+<ul>
+<li><a href="https://developer.android.com/guide/topics/providers/document-provider.html">https://developer.android.com/guide/topics/providers/document-provider.html</a></li>
+</ul>
+<p>We will now trigger this dialog. When starting an activity like this, we usually define a special code - which we will expect the new activity to send back when it is finished (otherwise we might get confused as to which activity has just finished).</p>
+<p>Here is the id we invent - make it a class member of PlacemakerActivity:</p>
+<h2>PlacemakerActivity</h2>
+<pre><code>  val IMAGE_REQUEST = 1</code></pre>
+<p>Then to trigger the picker:</p>
+<pre><code>    chooseImage.setOnClickListener {
+      showImagePicker(this, IMAGE_REQUEST)
+    }</code></pre>
+<p>If there are no images in your simulator, you might want to launch a browser, find some images and save them to your camera roll (long press in chrome will trigger this).</p>
+<p>Run the app now and verify that the picker does in fact appear, presenting a set of images for selection.</p>
+
+      </div>
+     
+      <div  class="ui tab segment lab" data-tab="04">
+        <h1>Displaying the Image</h1>
+<p>We can now extend the PlacemarkModel to include the image reference as an additional field:</p>
+<h2>PlacemarkModel</h2>
+<pre><code>    var image: String = &quot;&quot;</code></pre>
+<p>In PlacemarkActivity we can recover the image name when the activity picker activity finishes:</p>
+<h2>PlacemarkActivity</h2>
+<pre><code>  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    super.onActivityResult(requestCode, resultCode, data)
+    when (requestCode) {
+      IMAGE_REQUEST -&gt; {
+        if (data != null) {
+          placemark.image = data.getData().toString()
+        }
+      }
+    }
+  }</code></pre>
+<p>Notice how we are recovering the name only when the IMAGE_REQUEST is seen.</p>
+<p>See if you can run the application under debug - and place a breakpoint in where the image names is recovered above. See if you can inspect the name.</p>
+<p>In order to display the image, we introduce another helper :</p>
+<h2>Imagehelpers</h2>
+<pre><code>fun readImage(activity: Activity, resultCode: Int, data: Intent?): Bitmap? {
+  var bitmap: Bitmap? = null
+  if (resultCode == Activity.RESULT_OK &amp;&amp; data != null &amp;&amp; data.data != null) {
+    try {
+      bitmap = MediaStore.Images.Media.getBitmap(activity.contentResolver, data.data)
+    } catch (e: IOException) {
+      e.printStackTrace()
+    }
+  }
+  return bitmap
+}</code></pre>
+<p>Finally, we can use this method to display the image in the image view:</p>
+<h2>PlacemarkActivity</h2>
+<pre><code>      IMAGE_REQUEST -&gt; {
+        if (data != null) {
+          placemark.image = data.getData().toString()
+          placemarkImage.setImageBitmap(readImage(this, resultCode, data))
+        }</code></pre>
+<p>Run this now, and the selected image should be displayed in the view.</p>
+
+      </div>
+     
+      <div  class="ui tab segment lab" data-tab="05">
+        <h1>Displaying the image in Edit mode</h1>
+<p>If you run run the app - we seem to be able to load the image when we create a new placemark, but not when we proceed to edit one.</p>
+<p>This is relatively straightforward. First we define an additional image helper for convenience:</p>
+<h2>ImageHelpers</h2>
+<pre><code>fun readImageFromPath(context: Context, path : String) : Bitmap? {
+  var bitmap : Bitmap? = null
+  val uri = Uri.parse(path)
+  if (uri != null) {
+    try {
+      val parcelFileDescriptor = context.getContentResolver().openFileDescriptor(uri, &quot;r&quot;)
+      val fileDescriptor = parcelFileDescriptor.getFileDescriptor()
+      bitmap = BitmapFactory.decodeFileDescriptor(fileDescriptor)
+      parcelFileDescriptor.close()
+    } catch (e: Exception) {
+    }
+  }
+  return bitmap
+}</code></pre>
+<p>We can now call this when in edit mode:</p>
+<h2>PlacemarkActivity</h2>
+<pre><code>    if (intent.hasExtra(&quot;placemark_edit&quot;)) {
+      //... as before
+      placemarkImage.setImageBitmap(readImageFromPath(this, placemark.image))
+    }</code></pre>
+<p>The image should now appear when we edit a placemark.</p>
+
+      </div>
+     
+      <div  class="ui tab segment lab" data-tab="06.Exercises">
+        <h1>Solution</h1>
+<p>Placemark application so far:</p>
+<ul>
+<li><a href="archives/archive.zip">archive.zip</a></li>
+</ul>
+<h2>Exercise 1</h2>
+<p>As a user, create a new placemark with a title + image. Now edit the placemark and change the title - and update the placemark. Notice that the title has changed in PlacemarkList. </p>
+<p>Edit the placemark and change the image - and update the placemark. Go back in to edit the placemark again - what image do you see?</p>
+<p>There is a bug here - the placemark activity is still showing the original image. See if you can debug and fix this bug.</p>
+<p>(HINT - look in the PlacemarkMemStore class)</p>
+<h2>Exercise 2</h2>
+<p>in PlacemarkActivity, if you are editing a placemark OR if the placemark already has an image, change the button label to be &#39;Change Image&#39;</p>
+<h2>Exercise 3</h2>
+<p>Introduce a new ImageView into the PlaceMarkCard view (displayed on PlacemarkListAcivity). Display the placemark images here (if an image has been loaded)</p>
+
+      </div>
+     
+    </div>
+  </div>
+</div>
+<!--<div class="ui bottom fixed borderless right menu">
+  <div class="ui right tiny menu">
+    <div class="ui mini message segment">
+      .
+      <a href="http://creativecommons.org/licenses/by-nc/4.0/"
+         title="External link to http://creativecommons.org/licenses/by-nc/4.0/"
+         target="_blank">Creative Commons License
+      </a>
+    </div>
+  </div>
+</div>-->
+
+<script>
+  $(document).on('keydown', function(e) {
+  e = e || window.event;
+  var nextTab;
+  switch (e.which || e.keyCode) {
+    case 37: // left
+      nextTab = $('.tab-menu a[data-tab].active').prev('a[data-tab]');
+      if (!nextTab.length) nextTab = $('.tab-menu a[data-tab]').last();
+      nextTab.click();
+      $('.pusher').focus();
+      break;
+
+    case 39: // right
+      nextTab = $('.tab-menu a[data-tab].active').next('a[data-tab]');
+      if (!nextTab.length) nextTab = $('.tab-menu a[data-tab]').first();
+      nextTab.click();
+      $('.pusher').focus();
+      break;
+  }
+});
+
+</script>
+
+
+
+    <footer>
+
+    </footer>
+    <script>
+      $(document).ready(function() {
+  $('img').addClass('ui image');
+
+  $('.ui.embed').embed();
+
+  const $images = $('.lab img');
+  jQuery.each($images, function(i) {
+    if ($images[i].alt.length > 0) {
+      const divImg = $(document.createElement('div')).addClass(
+        'ui basic segment',
+      );
+      $($images[i]).wrap(divImg);
+      const divLabel = $(document.createElement('div')).addClass(
+        'ui blue ribbon label',
+      );
+      divLabel.append($images[i].alt);
+      $(divLabel).insertBefore($images[i]);
+    }
+  });
+
+  $('.ui.menu .item').tab({
+    history: true,
+    historyType: 'hash',
+  });
+
+  $('.popup').popup();
+
+  $('.ui.sidebar')
+    .sidebar({ context: $('.pushable') })
+    .sidebar('setting', 'transition', 'slide out')
+    .sidebar('attach events', '#toc');
+});
+
+    </script>
+  </body>
+
+ </html>
